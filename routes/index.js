@@ -14,7 +14,7 @@ router.get("/wardrobe", function (req, res, next) {
 });
 
 router.get("/wardrobe/:id", function (req, res) {
-  db(`SELECT * FROM students id=${req.params.id};
+  db(`SELECT * FROM wardrobe id=${req.params.id};
   `)
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
@@ -30,7 +30,7 @@ router.post("/wardrobe", function (req, res) {
 });
 
 router.delete("/api/wardrobe/:id", function (req, res) {
-  db(`DELETE FROM students WHERE id=$
+  db(`DELETE FROM wardrobe WHERE id=$
   {req.params.id};`)
     .then((results) => res.send(results))
     .catch((err) => res.status(500).send(err));

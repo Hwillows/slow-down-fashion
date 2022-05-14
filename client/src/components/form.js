@@ -1,3 +1,4 @@
+import res from "express/lib/response";
 import React, { useState } from "react";
 
 function Form() {
@@ -20,7 +21,8 @@ function Form() {
       body: JSON.stringify(clothesCategory),
       // imageData,
     })
-    .then(() => )
+      .then(() => res.json())
+      .catch((error) => console.log(error));
   };
 
   function handleCategoryChange(event) {

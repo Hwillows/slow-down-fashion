@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
-import FormPage from "./components/form";
+import FormPage from "./components/Form";
 import Wardrobe from "./components/Wardrobe";
 function App() {
   const [allImages, setAllImages] = useState([]);
@@ -32,7 +32,7 @@ function App() {
           </div>
         );
       })} */}
-      {!myWardrobe ? <FormPage /> : <Wardrobe />}
+      {!myWardrobe ? <div>Testing</div> : <Wardrobe />}
       {/* <p>
         10,000 items of clothing are being sent to landfill every five minutes
       </p>

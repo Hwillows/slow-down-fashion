@@ -1,7 +1,7 @@
 var express = require("express");
-const res = require("express/lib/response");
+var res = require("express/lib/response");
 var router = express.Router();
-const db = require("../model/helper");
+var db = require("../model/helper");
 
 router.get("/", function (req, res, next) {
   res.send("You are an index");
@@ -15,8 +15,9 @@ router.get("/wardrobe", function (req, res) {
 });
 
 router.get("/wardrobe/:id", function (req, res, next) {
-  db(`SELECT * FROM wardrobe id=${req.params.id};
-  `)
+  console.log(req.params.id, " get id ");
+
+  db(`SELECT * FROM wardrobe WHERE id=${req.params.id};`)
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
@@ -29,9 +30,8 @@ router.get("/wardrobe/:id", function (req, res, next) {
 //     .catch((err) => res.status(500).send(err));
 // });
 
-router.post("/wardrobe", (req, res) => {
-  console.log(req, "is the body");
-  // `INSERT INTO items (text, complete) VALUES ("${req.body.text}", "${req.body.complete}");`
+router.post("/wardrobe", function (req, res) {
+  console.log(req.body, "is the body");
   db(
     `INSERT INTO wardrobe (clothesCategory, clothesImage) VALUES ("${req.body.clothesCategory}", "${req.body.clothesImage}");`
   )

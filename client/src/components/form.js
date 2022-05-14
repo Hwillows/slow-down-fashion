@@ -1,3 +1,4 @@
+import res from "express/lib/response";
 import React, { useState } from "react";
 import "../App.css";
 
@@ -20,7 +21,16 @@ function Form() {
       headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify(clothesCategory),
       // imageData,
+<<<<<<< HEAD
     });
+||||||| merged common ancestors
+    })
+    .then(() => )
+=======
+    })
+      .then(() => res.json())
+      .catch((error) => console.log(error));
+>>>>>>> aad1586d981fef83d4899bff1b7ecfe7445c3368
   };
 
   function handleCategoryChange(event) {

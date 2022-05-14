@@ -1,4 +1,5 @@
 var express = require("express");
+const res = require("express/lib/response");
 var router = express.Router();
 const db = require("../model/helper");
 
@@ -7,31 +8,40 @@ router.get("/", function (req, res, next) {
 });
 
 /* GET home page.*/
-router.get("/wardrobe", function (req, res, next) {
+router.get("/wardrobe", function (req, res) {
   db(`SELECT * FROM wardrobe;`)
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-router.get("/wardrobe/:id", function (req, res) {
+router.get("/wardrobe/:id", function (req, res, next) {
   db(`SELECT * FROM wardrobe id=${req.params.id};
   `)
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
 });
 
-router.post("/wardrobe", function (req, res) {
-  // db(
-  //   `INSERT INTO wardrobe (id,  clothesCatagory, clothesImage) VALUES (“${req.body.id}", “${req.body.clothesCatagory}”, “${req.body.clothesImage}”);`
-  // )
-  //   .then((results) => res.send(results.data))
-  //   .catch((err) => res.status(500).send(err));
-  console.log(req.file);
+// router.get("/wardrobe/:clothesCategory", function (req, res) {
+//   db(
+//     `SELECT clothesImage FROM wardrobe WHERE clothesCatagory=${req.params.clothesCategory};`
+//   )
+//     .then((results) => res.send(results.data))
+//     .catch((err) => res.status(500).send(err));
+// });
+
+router.post("/wardrobe", (req, res) => {
+  console.log(req, "is the body");
+  // `INSERT INTO items (text, complete) VALUES ("${req.body.text}", "${req.body.complete}");`
+  db(
+    `INSERT INTO wardrobe (clothesCategory, clothesImage) VALUES ("${req.body.clothesCategory}", "${req.body.clothesImage}");`
+  )
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err.message));
 });
 
-router.delete("/api/wardrobe/:id", function (req, res) {
-  db(`DELETE FROM wardrobe WHERE id=$
-  {req.params.id};`)
+router.delete("/wardrobe/:id", function (req, res) {
+  console.log(req.params, "is the params");
+  db(`DELETE FROM wardrobe WHERE id=${req.params.id};`)
     .then((results) => res.send(results))
     .catch((err) => res.status(500).send(err));
 });

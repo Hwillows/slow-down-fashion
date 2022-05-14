@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 
 function Form() {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
+
+  const [clothesCategory, setCategory] = useState();
 
   const handleImageUpload = (event) => {
     setImage(event.target.files[0]);
@@ -9,25 +11,60 @@ function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const imageData = new FormData();
-    imageData.append("image", image);
-    console.log(imageData);
+    // const imageData = new FormData();
+    // imageData.append("image", image);
+    // console.log(imageData);
     fetch("/wardrobe", {
       method: "POST",
-      body: imageData,
-    });
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify(clothesCategory),
+      // imageData,
+    })
+    .then(() => )
   };
+
+  function handleCategoryChange(event) {
+    setCategory(event.target.value);
+  }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          name="imageUpload"
-          onChange={handleImageUpload}
-        ></input>
-        <button type="submit">Submit</button>
-      </form>
+      <div class="container">
+        <div class="row justify-content-md-centre">
+          <div class="col col-lg-2"></div>
+          <div class="col-md-auto">
+            <form class="row-cols-1" onSubmit={handleSubmit}>
+              <div class="container">
+                <div class="row row-cols-2">
+                  <label class="col">Clothes Category</label>
+
+                  <select
+                    name={clothesCategory}
+                    onChange={handleCategoryChange}
+                    class="col"
+                  >
+                    <option>Jacket</option>
+                    <option>Top</option>
+                    <option>Trousers</option>
+                    <option>Shoes</option>
+                  </select>
+
+                  <label class="col">Upload Image</label>
+
+                  <input
+                    type="URL"
+                    name="imageUpload"
+                    onChange={handleImageUpload}
+                    class="col"
+                  ></input>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-sm">Submit</button>
+            </form>
+          </div>
+          <div class="col col-lg-2"></div>
+        </div>
+      </div>
     </div>
   );
 }

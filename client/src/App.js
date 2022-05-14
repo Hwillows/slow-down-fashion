@@ -20,10 +20,49 @@ function App() {
   return (
     <div className="App">
       <header className="App-header"></header>
-      <h1> Slow Down Fashion</h1>
-      <button onClick={() => handleWardrobeView(true)}>My Wardrobe</button>
-      <button onClick={() => handleWardrobeView(false)}>Add item</button>
-      <p> Slow down fashion by finding a new love for your existing clothes</p>
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-2"></div>
+          <div class="col-md-auto">
+            <h1> Slow Down Fashion</h1>
+          </div>
+          <div class="col col-lg-2"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col justify-content"></div>
+          <button
+            class={
+              myWardrobe ? "col-4 btn btn-success" : "col-4 btn btn-secondary"
+            }
+            onClick={() => handleWardrobeView(true)}
+          >
+            My Wardrobe
+          </button>
+          <button
+            class={
+              !myWardrobe ? "col-4 btn btn-success" : "col-4 btn btn-secondary"
+            }
+            onClick={() => handleWardrobeView(false)}
+          >
+            Add item
+          </button>
+          <div class="col justify-content"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row justify-content-md-center">
+          <div class="col col-lg-2"></div>
+          <div class="col-md-auto">
+            <p>
+              {" "}
+              Slow down fashion by finding a new love for your existing clothes
+            </p>
+          </div>
+          <div class="col col-lg-2"></div>
+        </div>
+      </div>
 
       {/* {allImages.map((images, index) => {
         return (

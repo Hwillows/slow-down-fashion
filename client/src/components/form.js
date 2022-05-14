@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../App.css";
 
 function Form() {
   const [image, setImage] = useState("");
@@ -19,8 +20,7 @@ function Form() {
       headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify(clothesCategory),
       // imageData,
-    })
-    .then(() => )
+    });
   };
 
   function handleCategoryChange(event) {
@@ -30,18 +30,20 @@ function Form() {
   return (
     <div>
       <div class="container">
-        <div class="row justify-content-md-centre">
-          <div class="col col-lg-2"></div>
-          <div class="col-md-auto">
+        <div class="row">
+          <div class="col justify-content"></div>
+          <div class="col-8">
             <form class="row-cols-1" onSubmit={handleSubmit}>
               <div class="container">
                 <div class="row row-cols-2">
-                  <label class="col">Clothes Category</label>
+                  <label class="col nav justify-content-end">
+                    Clothes Category
+                  </label>
 
                   <select
                     name={clothesCategory}
                     onChange={handleCategoryChange}
-                    class="col"
+                    class="col-3"
                   >
                     <option>Jacket</option>
                     <option>Top</option>
@@ -49,17 +51,21 @@ function Form() {
                     <option>Shoes</option>
                   </select>
 
-                  <label class="col">Upload Image</label>
+                  <label class="col nav justify-content-end">
+                    Upload Image
+                  </label>
 
                   <input
                     type="URL"
                     name="imageUpload"
                     onChange={handleImageUpload}
-                    class="col"
+                    class="col-3"
                   ></input>
                 </div>
               </div>
-              <button class="btn btn-primary btn-sm">Submit</button>
+              <div class="nav justify-content-center">
+                <button class="btn btn-primary button-size">Submit</button>
+              </div>
             </form>
           </div>
           <div class="col col-lg-2"></div>

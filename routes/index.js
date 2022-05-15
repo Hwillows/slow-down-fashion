@@ -22,13 +22,13 @@ router.get("/wardrobe/:id", function (req, res, next) {
     .catch((err) => res.status(500).send(err));
 });
 
-// router.get("/wardrobe/:clothesCategory", function (req, res) {
-//   db(
-//     `SELECT clothesImage FROM wardrobe WHERE clothesCatagory=${req.params.clothesCategory};`
-//   )
-//     .then((results) => res.send(results.data))
-//     .catch((err) => res.status(500).send(err));
-// });
+router.get("/wardrobe/item/:clothesCategory", function (req, res) {
+  db(
+    `SELECT * FROM wardrobe WHERE clothesCategory="${req.params.clothesCategory}";`
+  )
+    .then((results) => res.send(results.data))
+    .catch((err) => res.status(500).send(err));
+});
 
 router.post("/wardrobe", function (req, res) {
   console.log(req.body, "is the body");

@@ -3,19 +3,10 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-<<<<<<< HEAD
 var bodyParser = require("body-parser");
-||||||| merged common ancestors
-=======
-var bodyParser = require("body-parser");
-var cors = require("cors");
->>>>>>> aad1586d981fef83d4899bff1b7ecfe7445c3368
-
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-
 var app = express();
-<<<<<<< HEAD
 
 // parse application/json
 app.use(bodyParser.json());
@@ -23,20 +14,11 @@ app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-||||||| merged common ancestors
-=======
-// parse application/json
-app.use(bodyParser.json());
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(cors());
->>>>>>> aad1586d981fef83d4899bff1b7ecfe7445c3368
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 

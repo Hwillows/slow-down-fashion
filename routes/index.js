@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
 });
 
 /* GET home page.*/
-router.get("/wardrobe", function (req, res) {
+router.get("/wardrobe", function (req, res, next) {
   db(`SELECT * FROM wardrobe;`)
     .then((results) => res.send(results.data))
     .catch((err) => res.status(500).send(err));
@@ -22,15 +22,19 @@ router.get("/wardrobe/:id", function (req, res, next) {
     .catch((err) => res.status(500).send(err));
 });
 
-router.get("/wardrobe/item/:clothesCategory", function (req, res) {
+router.get("/wardrobe/item/:clothesCategory", function (req, res, next) {
+  console.log("i am here");
   db(
     `SELECT * FROM wardrobe WHERE clothesCategory="${req.params.clothesCategory}";`
   )
-    .then((results) => res.send(results.data))
+    .then((results) => {
+      console.log(results);
+      res.send(results.data);
+    })
     .catch((err) => res.status(500).send(err));
 });
 
-router.post("/wardrobe", function (req, res) {
+router.post("/wardrobe", function (req, res, next) {
   console.log(req.body, "is the body");
   db(
     `INSERT INTO wardrobe (clothesCategory, clothesImage) VALUES ("${req.body.clothesCategory}", "${req.body.clothesImage}");`

@@ -1,48 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Wardrobe() {
-  const [jacket, getJacketURL] = useState("");
-  const [top, getTopURL] = useState("");
-  const [trousers, getTrousersURL] = useState("");
-  const [shoes, getShoesURL] = useState("");
+  const [jackets, getJackets] = useState([]);
+  // const [top, getTop] = useState([]);
+  // const [trousers, getTrousers] = useState([]);
+  // const [shoes, getShoes] = useState([]);
 
-  getJacketURL(() => {
-    // fetch("/wardrobe/item/jacket", {
-    //   headers: { "Content-Type": "application/json; charset=utf-8" },
-    //   body: jacket, // is this how i retrieve the URL
-    // });
-  });
-  getTopURL(() => {
-    // fetch("/wardrobe/item/top", {
-    //   headers: { "Content-Type": "application/json; charset=utf-8" },
-    //   body: top, // is this how i retrieve the URL
-    // });
-  });
-  getTrousersURL(() => {
-    // fetch("/wardrobe/item/trousers", {
-    //   headers: { "Content-Type": "application/json; charset=utf-8" },
-    //   body: trousers, // is this how i retrieve the URL
-    // });
-  });
-  getShoesURL(() => {
-    // fetch("/wardrobe/item/shoes", {
-    //   headers: { "Content-Type": "application/json; charset=utf-8" },
-    //   body: shoes, // is this how i retrieve the URL
-    // });
-  });
+  useEffect(() => {
+    fetch("/wardrobe/item/jacket", {
+      // headers: { "Content-Type": "application/json; charset=utf-8" },
+    })
+      .then((res) => res.json())
+      .then((results) => {
+        console.log(results);
+        getJackets(results);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  // getTop(() => {
+  // fetch("/wardrobe/item/top", {
+  //   headers: { "Content-Type": "application/json; charset=utf-8" },
+  //   body: top,
+  // });
+  // });
+  // getTrousers(() => {
+  // fetch("/wardrobe/item/trousers", {
+  //   headers: { "Content-Type": "application/json; charset=utf-8" },
+  //   body: trousers
+  // });
+  // });
+  // getShoes(() => {
+  // fetch("/wardrobe/item/shoes", {
+  //   headers: { "Content-Type": "application/json; charset=utf-8" },
+  //   body: shoes
+  // });
+  // });
   return (
     <div>
-      {jacket.map((oneJacket, index) => {
+      <h1>My Wardrobe</h1>
+      {jackets.map((oneJacket, index) => {
         return (
           <div key={index}>
+            {oneJacket.clothesImage}
             <img src={oneJacket.clothesImage} alt={oneJacket.id} />
           </div>
         );
       })}
-      {/* <div>map jacket url into image src </div> */}
-      {/* <div>map top url into image src </div> */}
-      {/* <div>map trousers url into image src </div> */}
-      {/* <div>map shoes url into image src </div> */}
     </div>
   );
 }

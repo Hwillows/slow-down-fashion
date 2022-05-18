@@ -61,7 +61,7 @@ function Wardrobe() {
   return (
     <div>
       <h1>My Wardrobe</h1>
-      {/* <div>
+      <div>
         {jackets.map((oneJacket, index) => {
           return (
             <div key={index}>
@@ -70,7 +70,7 @@ function Wardrobe() {
             </div>
           );
         })}
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -1,76 +1,261 @@
 import React, { useState, useEffect } from "react";
 
 function Wardrobe() {
-  const [jackets, getJackets] = useState([
-    {
-      id: 4,
-      clothesCategory: "jacket",
-      clothesImage:
-        "https://media.wired.com/photos/606ce52941bf976945513469/191:100/w_2086,h_1092,c_limit/Gear-Cloudburst-Jacket---Mandarin-Front-square-grey-back.jpg",
-    },
-    {
-      id: 5,
-      clothesCategory: "jacket",
-      clothesImage:
-        "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/c1ddc8b2-0f26-4074-a85d-916518ee2425/esc-bonded-jacket-3cJJ3W.png",
-    },
-    {
-      id: 7,
-      clothesCategory: "jacket",
-      clothesImage:
-        "https://www.fjallraven.com/49444d/globalassets/catalogs/fjallraven/f8/f816/f81698/f232/skogso_jacket_m_81698-232_a_main_fjr.jpg?width=680&height=680&mode=BoxPad&bgcolor=fff&quality=80",
-    },
-  ]);
-  // const [top, getTop] = useState([]);
-  // const [trousers, getTrousers] = useState([]);
-  // const [shoes, getShoes] = useState([]);
+  const [jackets, setJackets] = useState([]);
+  const [tops, setTops] = useState([]);
+  const [trousers, setTrousers] = useState([]);
+  const [shoes, setShoes] = useState([]);
 
   useEffect(() => {
-    fetch("/wardrobe/item/jacket", {
-      // headers: { "Content-Type": "application/json; charset=utf-8" },
-    })
-      .then((res) => {
-        console.log(res);
-        res.json();
-      })
-      .then((results) => {
-        console.log(results);
-        getJackets(results);
-      })
-      .catch((err) => console.log(err));
+    async function fetchData() {
+      const response = await fetch(
+        "http://localhost:5005/wardrobe/item/jacket"
+      );
+      const results = await response.json();
+      console.log(results);
+      setJackets(results);
+    }
+    fetchData();
   }, []);
 
-  // getTop(() => {
-  // fetch("/wardrobe/item/top", {
-  //   headers: { "Content-Type": "application/json; charset=utf-8" },
-  //   body: top,
-  // });
-  // });
-  // getTrousers(() => {
-  // fetch("/wardrobe/item/trousers", {
-  //   headers: { "Content-Type": "application/json; charset=utf-8" },
-  //   body: trousers
-  // });
-  // });
-  // getShoes(() => {
-  // fetch("/wardrobe/item/shoes", {
-  //   headers: { "Content-Type": "application/json; charset=utf-8" },
-  //   body: shoes
-  // });
-  // });
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("http://localhost:5005/wardrobe/item/top");
+      const results = await response.json();
+      console.log(results);
+      setTops(results);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        "http://localhost:5005/wardrobe/item/trousers"
+      );
+      const results = await response.json();
+      console.log(results);
+      setTrousers(results);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("http://localhost:5005/wardrobe/item/shoes");
+      const results = await response.json();
+      console.log(results);
+      setShoes(results);
+    }
+    fetchData();
+  }, []);
+
+  const [jacketsButton, setJacketsButton] = useState(false);
+
+  const handleJacketsButton = (jacketsButton) => {
+    setJacketsButton(jacketsButton);
+  };
+  const [topsButton, setTopsButton] = useState(false);
+
+  const handleTopsButton = (topsButton) => {
+    setTopsButton(topsButton);
+  };
+  const [trousersButton, setTrousersButton] = useState(false);
+
+  const handleTrousersButton = (trousersButton) => {
+    setTrousersButton(trousersButton);
+  };
+  const [shoesButton, setShoesButton] = useState(false);
+
+  const handleShoesButton = (shoesButton) => {
+    setShoesButton(shoesButton);
+  };
+
+  // when am image is clicked, the image should be added to an array
+  const [chosenOutfit, setChosenOutfit] = useState([]);
+  const handleOutfit = (chosenOutfit) => {
+    setChosenOutfit(chosenOutfit);
+    console.log(chosenOutfit);
+  };
+
   return (
     <div>
-      <h1>My Wardrobe</h1>
-      <div>
-        {jackets.map((oneJacket, index) => {
-          return (
-            <div key={index}>
-              {oneJacket.clothesImage}
-              <img src={oneJacket.clothesImage} alt={oneJacket.id} />
+      {/* Jacket Carousel */}
+      {/* <div className="container">
+        <div className="row justify-content-md-center">
+          <div className="col-4">
+            <div
+              id="carouselExampleControls"
+              className="carousel slide"
+              data-bs-ride="carousel"
+            >
+              <div className="carousel-inner">
+                {jackets.map((oneJacket, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`carousel-item ${index === 0 ? "active" : ""}`}
+                    >
+                      <img
+                        className="d-block w-100"
+                        src={oneJacket.clothesImage}
+                        alt={oneJacket.id}
+                      />{" "}
+                      <button className="btn btn-outline-danger">X</button>
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                className="carousel-control-prev carousel-dark-control-icon-filter"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev"
+              >
+                <span
+                  className="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Previous</span>
+              </button>
+              <button
+                className="carousel-control-next"
+                type="button"
+                data-bs-target="#carouselExampleControls"
+                data-bs-slide="next"
+              >
+                <span
+                  className="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span className="visually-hidden">Next</span>
+              </button>
             </div>
-          );
-        })}
-      </div>
+          </div>
+        </div>
+      </div> */}
+      <button
+        onClick={
+          jacketsButton
+            ? () => handleJacketsButton(false)
+            : () => handleJacketsButton(true)
+        }
+      >
+        Jacket
+      </button>
+      <button
+        onClick={
+          topsButton
+            ? () => handleTopsButton(false)
+            : () => handleTopsButton(true)
+        }
+      >
+        Tops
+      </button>
+      <button
+        onClick={
+          trousersButton
+            ? () => handleTrousersButton(false)
+            : () => handleTrousersButton(true)
+        }
+      >
+        Trousers
+      </button>
+      <button
+        onClick={
+          shoesButton
+            ? () => handleShoesButton(false)
+            : () => handleShoesButton(true)
+        }
+      >
+        Shoes
+      </button>
+
+      {/* <img
+        className="image-size rounded"
+        src={featuredJacket.clothesImage}
+        alt={featuredJacket.id}
+      /> */}
+
+      {jacketsButton ? (
+        <div className="container">
+          <div className="row row-cols-3">
+            {jackets.map((oneJacket, index) => {
+              return (
+                <div key={index} className="col">
+                  <img
+                    className="image-size rounded"
+                    src={oneJacket.clothesImage}
+                    alt={oneJacket.id}
+                    onClick={handleOutfit}
+                  />
+                  <button className="btn btn-outline-danger">X</button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+      {topsButton ? (
+        <div className="container">
+          <div className="row row-cols-3">
+            {tops.map((oneTop, index) => {
+              return (
+                <div key={index} className="col">
+                  <img
+                    className="image-size rounded"
+                    src={oneTop.clothesImage}
+                    alt={oneTop.id}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+      {trousersButton ? (
+        <div className="container">
+          <div className="row row-cols-3">
+            {trousers.map((oneTrousers, index) => {
+              return (
+                <div key={index} className="col">
+                  <img
+                    className="image-size rounded"
+                    src={oneTrousers.clothesImage}
+                    alt={oneTrousers.id}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
+      {shoesButton ? (
+        <div className="container">
+          <div className="row row-cols-3">
+            {shoes.map((oneShoes, index) => {
+              return (
+                <div key={index} className="col">
+                  <img
+                    className="image-size rounded"
+                    src={oneShoes.clothesImage}
+                    alt={oneShoes.id}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div> </div>
+      )}
     </div>
   );
 }

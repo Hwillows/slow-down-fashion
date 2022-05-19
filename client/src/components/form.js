@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import "../App.css";
 
 function Form() {
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("jacket");
 
   const [image, setImage] = useState("");
 
-  function handleCategoryChange(event) {
+  const handleCategoryChange = (event) => {
     setCategory(event.target.value);
-  }
+    console.log(event.target.value);
+  };
 
   const handleImageUpload = (event) => {
     setImage(event.target.value);
@@ -16,16 +17,15 @@ function Form() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let newItem = {
-      clothesCategory: category,
-      clothesImage: image,
-    };
-    fetch("/wardrobe", {
+    let newItem = { clothesCategory: category, clothesImage: image };
+
+    fetch("http://localhost:5005/wardrobe", {
       method: "POST",
       headers: { "Content-Type": "application/json; charset=utf-8" },
       body: JSON.stringify(newItem),
+    }).then(() => {
+      console.log("new item added");
     });
-    //.then(push newItem into wardrobe array on database)
   };
 
   return (
@@ -40,14 +40,14 @@ function Form() {
             </div>
             <div className="col">
               <select
-                name={category}
+                value={category}
                 onChange={handleCategoryChange}
                 className="mt-4"
               >
-                <option>Jacket</option>
-                <option>Top</option>
-                <option>Trousers</option>
-                <option>Shoes</option>
+                <option value="jacket">Jacket</option>
+                <option value="top">Top</option>
+                <option value="trousers">Trousers</option>
+                <option value="shoes">Shoes</option>
               </select>
             </div>
             <div className="col-4">
@@ -59,12 +59,16 @@ function Form() {
               <input
                 type="URL"
                 name="imageUpload"
+                // onChange={(e) => setImage(e.target.value)}
                 onChange={handleImageUpload}
                 className="mt-4"
               ></input>
             </div>
             <div className="d-flex justify-content-start">
-              <button className="btn btn-primary button-size mt-4">
+              <button
+                type="submit"
+                className="btn btn-primary button-size mt-4"
+              >
                 Submit
               </button>
             </div>

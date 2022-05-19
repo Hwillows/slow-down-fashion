@@ -5,15 +5,8 @@ import FormPage from "./components/Form";
 import Wardrobe from "./components/Wardrobe";
 
 function App() {
-  // const [allImages, setAllImages] = useState([]);
-  const [myWardrobe, setMyWardrobe] = useState(false);
-
-  // useEffect(() => {
-  //   fetch("/wardrobe")
-  //     .then((res) => res.json())
-  //     .then((results) => setAllImages(results))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  
+  const [myWardrobe, setMyWardrobe] = useState(true);
 
   const handleWardrobeView = (myWardrobe) => {
     setMyWardrobe(myWardrobe);

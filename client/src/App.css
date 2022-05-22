@@ -11,12 +11,16 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.minimal-background {
-  /* background-image: url("Wardrobe.JPG");
-  background-size: 550px;
-  background-repeat: no-repeat; */
-}
 .image-size {
   height: 200px;
   width: 200px;
+}
+.remove-button {
+  width: 100px;
+  height: 40px;
+}
+
+.chosenOutfit-size {
+  height: 400px;
+  width: auto;
 }

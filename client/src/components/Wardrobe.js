@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 function Wardrobe() {
   const [jackets, setJackets] = useState([]);
   const [tops, setTops] = useState([]);
-  const [trousers, setTrousers] = useState([]);
+  const [bottoms, setBottoms] = useState([]);
+  const [allInOnes, setAllInOnes] = useState([]);
   const [shoes, setShoes] = useState([]);
 
   useEffect(() => {
@@ -31,11 +32,23 @@ function Wardrobe() {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
-        "http://localhost:5005/wardrobe/item/trousers"
+        "http://localhost:5005/wardrobe/item/bottoms"
       );
       const results = await response.json();
       console.log(results);
-      setTrousers(results);
+      setBottoms(results);
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        "http://localhost:5005/wardrobe/item/allinone"
+      );
+      const results = await response.json();
+      console.log(results);
+      setAllInOnes(results);
     }
     fetchData();
   }, []);
@@ -49,43 +62,35 @@ function Wardrobe() {
     }
     fetchData();
   }, []);
-  const idtest = 1;
+
   const handleDelete = (event) => {
     const response = fetch(`http://localhost:5005/wardrobe/${event}`, {
       method: "DELETE",
     });
-    console.log(`${idtest} was deleted`);
+    setJackets([...jackets]);
   };
 
-  // const handleDelete = async () => {
-  //   const response = await fetch(`http://localhost:5005/wardrobe/${idtest}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: null,
-  //   });
-  //   const data = await response.json();
-  //   console.log(data, " deleted");
-  // };
-
   const [jacketsButton, setJacketsButton] = useState(false);
-
   const handleJacketsButton = (jacketsButton) => {
     setJacketsButton(jacketsButton);
   };
-  const [topsButton, setTopsButton] = useState(false);
 
+  const [topsButton, setTopsButton] = useState(false);
   const handleTopsButton = (topsButton) => {
     setTopsButton(topsButton);
   };
-  const [trousersButton, setTrousersButton] = useState(false);
 
-  const handleTrousersButton = (trousersButton) => {
-    setTrousersButton(trousersButton);
+  const [bottomsButton, setBottomsButton] = useState(false);
+  const handleBottomsButton = (bottomsButton) => {
+    setBottomsButton(bottomsButton);
   };
-  const [shoesButton, setShoesButton] = useState(false);
 
+  const [allInOnesButton, setAllInOnesButton] = useState(false);
+  const handleAllInOnesButton = (allInOnesButton) => {
+    setAllInOnesButton(allInOnesButton);
+  };
+
+  const [shoesButton, setShoesButton] = useState(false);
   const handleShoesButton = (shoesButton) => {
     setShoesButton(shoesButton);
   };
@@ -142,7 +147,7 @@ function Wardrobe() {
                   : () => handleJacketsButton(true)
               }
             >
-              Jacket
+              Jackets
             </button>
             <button
               className="btn btn-outline-dark"
@@ -157,12 +162,22 @@ function Wardrobe() {
             <button
               className="btn btn-outline-dark"
               onClick={
-                trousersButton
-                  ? () => handleTrousersButton(false)
-                  : () => handleTrousersButton(true)
+                bottomsButton
+                  ? () => handleBottomsButton(false)
+                  : () => handleBottomsButton(true)
               }
             >
-              Trousers
+              Bottoms
+            </button>
+            <button
+              className="btn btn-outline-dark"
+              onClick={
+                allInOnesButton
+                  ? () => handleAllInOnesButton(false)
+                  : () => handleAllInOnesButton(true)
+              }
+            >
+              All In Ones
             </button>
             <button
               className="btn btn-outline-dark"
@@ -236,22 +251,22 @@ function Wardrobe() {
       ) : (
         <div></div>
       )}
-      {trousersButton ? (
+      {bottomsButton ? (
         <div className="container">
           <div className="row row-cols-3">
-            {trousers.map((oneTrousers, index) => {
+            {bottoms.map((oneBottoms, index) => {
               return (
                 <div key={index} className="col">
                   <div className="d-flex flex-column mb-3">
                     <img
                       className="image-size rounded"
-                      src={oneTrousers.clothesImage}
-                      alt={oneTrousers.id}
-                      onClick={() => handleOutfit(oneTrousers)}
+                      src={oneBottoms.clothesImage}
+                      alt={oneBottoms.id}
+                      onClick={() => handleOutfit(oneBottoms)}
                     />
                     <button
                       className="btn btn-outline-danger remove-button p-2"
-                      onClick={() => handleDelete(oneTrousers.id)}
+                      onClick={() => handleDelete(oneBottoms.id)}
                     >
                       Remove
                     </button>
@@ -264,7 +279,34 @@ function Wardrobe() {
       ) : (
         <div></div>
       )}
-
+      {allInOnesButton ? (
+        <div className="container">
+          <div className="row row-cols-3">
+            {allInOnes.map((oneAllInOne, index) => {
+              return (
+                <div key={index} className="col">
+                  <div className="d-flex flex-column mb-3">
+                    <img
+                      className="image-size rounded"
+                      src={oneAllInOne.clothesImage}
+                      alt={oneAllInOne.id}
+                      onClick={() => handleOutfit(oneAllInOne)}
+                    />
+                    <button
+                      className="btn btn-outline-danger remove-button p-2"
+                      onClick={() => handleDelete(oneAllInOne.id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
       {shoesButton ? (
         <div className="container">
           <div className="row row-cols-3">

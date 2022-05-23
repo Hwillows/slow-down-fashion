@@ -49,7 +49,8 @@ function Form() {
                     >
                       <option value="jacket">Jacket</option>
                       <option value="top">Top</option>
-                      <option value="trousers">Trousers</option>
+                      <option value="bottoms">Bottoms</option>
+                      <option value="allInOne">All In One</option>
                       <option value="shoes">Shoes</option>
                     </select>
                   </div>

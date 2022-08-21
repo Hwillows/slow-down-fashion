@@ -26,7 +26,6 @@ function Login() {
 
       localStorage.setItem("token", data);
       setLoggedIn(true);
-
       navigate("/wardrobe");
       console.log(loggedIn + " is log in status");
     } catch (err) {

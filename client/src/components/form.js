@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
+import Header from "./Header";
+import Menu from "./Menu";
 
 function Form() {
   const [category, setCategory] = useState("jacket");
@@ -30,6 +32,8 @@ function Form() {
 
   return (
     <div>
+      <Header />
+      <Menu />
       <div className="container">
         <div className="row justify-content-md-center mt-4 mb-4">
           <div className="d-flex flex-row">

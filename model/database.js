@@ -18,11 +18,28 @@ con.connect(function (err) {
   if (err) throw err;
   console.log("Connected!");
 
-  let sql =
-    "DROP TABLE if exists wardrobe; CREATE TABLE wardrobe(id INT NOT NULL AUTO_INCREMENT, clothesCategory VARCHAR(255) not null, clothesImage VARCHAR(255) not null, PRIMARY KEY (id));";
-  con.query(sql, function (err, result) {
+  let sqlUsers =
+    "DROP TABLE if exists users; CREATE TABLE users(id INT NOT NULL AUTO_INCREMENT, username VARCHAR(255) not null, password VARCHAR(255) not null, PRIMARY KEY (id));";
+  con.query(sqlUsers, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `users` was successful!");
+
+    console.log("Closing...");
+  });
+
+  let sqlWardrobe =
+    "DROP TABLE if exists wardrobe; CREATE TABLE wardrobe(id INT NOT NULL AUTO_INCREMENT, user_id INT NOT NULL, clothesCategory VARCHAR(255) not null, clothesImage VARCHAR(255) not null, PRIMARY KEY (id));";
+  con.query(sqlWardrobe, function (err, result) {
     if (err) throw err;
     console.log("Table creation `wardrobe` was successful!");
+    console.log("Closing...");
+  });
+
+  let sqlSustainableClothing =
+    "DROP TABLE if exists sustainableClothing; CREATE TABLE sustainableClothing(id INT NOT NULL AUTO_INCREMENT, companyName VARCHAR(255) not null, price VARCHAR(255) not null, url VARCHAR(255) not null, comments VARCHAR(255) not null, PRIMARY KEY (id));";
+  con.query(sqlSustainableClothing, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `sustainableClothing` was successful!");
 
     console.log("Closing...");
   });

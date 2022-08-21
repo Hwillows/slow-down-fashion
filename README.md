@@ -1,16 +1,33 @@
-y# slow-down-fashion
+# slow-down-fashion
 
-Run 'NPM start' to run the back end in the terminal
+### Database Prep
 
-Be aware I am running the backend on port 5005
+- Access the MySQL interface in your terminal by running 'mysql -u root -p'
+- Create a new database called slowDownFashion: 'create database slowDownFashion;'
+- Add a '.env' file to the project directory containing MySQL authentication, access token for jwt
+- to generate secret key:
+  - open terminal, type node, then type:
+  - require('crypto').randomBytes(64).toString('hex')
 
-Open a new terminal and run 'CD client' then 'NPM start' to run the front end
+```bash
+  DB_HOST=127.0.0.1
+  DB_USER=root
+  DB_NAME=slowDownFashion
+  DB_PASS=YOURPASSWORD
+  ACCESS_TOKEN_SECRET= [generated secret key - see above]
+```
 
-The database is called 'slowDownFashion' in mySQL
+- In a new terminal: in the project directory run 'npm run migrate' to create tables within the slowDownFashion database
+  The tables are as follows:
 
-I currently have 1 table in my database called "Wardrobe"
+-users
+-wardrobe
+-sustainableClothing
+(see ReadmeResources: Tables.PNG for details)
 
-Wardrobe table consists of 3 headings:
-id: int - this is auto incremented
-clothesCategory: varChar(255) - this information is added to the database in the drop down box
-clothesImage: varChar(255) - this currently takes in a URL. But I would like to change this to blob eventually
+- In a new terminal, install the following packages in the backend:
+
+### Development
+
+- BACKEND TERMINAL: in project directory run 'npm start' (runs on port 5005)
+- FRONTEND TERMINAL: 'cd client' then 'npm start' (runs on port 3000)

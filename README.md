@@ -26,6 +26,13 @@
 (see ReadmeResources: Tables.PNG for details)
 
 - In a new terminal, install the following packages in the backend:
+  NPM install jsonwebtoken
+  NPM install bcrypt
+  NPM install express
+
+- In a new terminal, install the following packages in the frontend:
+  NPM install axios
+  NPM install react-router-dom
 
 ### Development
 

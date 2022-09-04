@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Header(props) {
   return (
     <div>
-      <body className="bg-white">
+      <div className="bg-white">
         <div className="container">
           <div className="row">
             <div className="col justify-content-md-center ">
@@ -28,7 +28,7 @@ function Header(props) {
             </div>
           </div>
         </div>
-      </body>
+      </div>
     </div>
   );
 }

@@ -1,55 +1,42 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
-  let [username, setUsername] = useState("");
-  let [password, setPassword] = useState("");
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+  });
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-  let handleSetUsername = (event) => {
-    setUsername(event.target.value);
+  const handleInputChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setCredentials({ ...credentials, [name]: value });
   };
 
-  let handleSetPassword = (event) => {
-    setPassword(event.target.value);
-  };
-
-  let handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    let newUser = {
-      username: username,
-      password: password,
-    };
-    fetch("http://localhost:5005/users/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify(newUser),
-    }).then(() => {
-      console.log("new user added");
-    });
+    const username = credentials.username;
+    const password = credentials.password;
+    try {
+      await axios("users/register", {
+        method: "POST",
+        data: credentials,
+      });
+      const { data } = await axios("/api/users/login", {
+        method: "POST",
+        data: { username: username, password: password },
+      });
+      localStorage.setItem("token", data);
+      navigate("/wardrobe");
+    } catch (err) {
+      setError(true);
+    }
   };
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   let newUser = {
-  //     username: username,
-  //     password: password,
-  //   };
-  //   try {
-  //     const { data } = await axios("http://localhost:5005/users/register", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json; charset=utf-8" },
-  //       body: JSON.stringify(newUser),
-  //     });
 
-  //     localStorage.setItem("token", data);
-  //     setLoggedIn(true);
-  //     navigate("/login");
-  //     console.log(loggedIn + " is log in status");
-  //   } catch (err) {
-  //     setError(true);
-  //   }
-  // };
   return (
     <div>
       <Header />
@@ -64,8 +51,9 @@ function Signup() {
                     <input
                       placeholder="Create Username"
                       className="border rounded mt-5 mb-3 px-2 py-2 bg-secondary text-white"
-                      value={username}
-                      onChange={handleSetUsername}
+                      value={credentials.username}
+                      name="username"
+                      onChange={handleInputChange}
                     ></input>
                   </div>
                   <div className="col">
@@ -73,8 +61,9 @@ function Signup() {
                       placeholder="Create Password"
                       className="border rounded mt-2 mb-4 px-2 py-2 bg-secondary text-white"
                       type="password"
-                      value={password}
-                      onChange={handleSetPassword}
+                      name="password"
+                      value={credentials.password}
+                      onChange={handleInputChange}
                     ></input>
                   </div>
                   <div className="col">

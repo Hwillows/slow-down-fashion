@@ -12,20 +12,18 @@ function Bottoms() {
   }, []);
 
   const getBottoms = async () => {
+    let token = localStorage.getItem("token");
     try {
-      let token = localStorage.getItem("token");
-      console.log(token + "is token");
       const { data } = await axios(
         "http://localhost:5005/wardrobe/item/bottoms",
         {
           method: "GET",
           header: {
-            authorisation: `Bearer ${token}`,
+            authorisation: `bearer ${token}`,
           },
         }
       );
-      setBottoms(data[0]);
-      console.log(token + "is the token");
+      setBottoms(data);
     } catch (err) {
       console.log(err);
     }

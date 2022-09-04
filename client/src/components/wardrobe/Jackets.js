@@ -12,18 +12,18 @@ function Jackets() {
   }, []);
 
   const getJackets = async () => {
-    let token = localStorage.getItem("token");
     try {
+      let token = localStorage.getItem("token");
       const { data } = await axios(
         "http://localhost:5005/wardrobe/item/jacket",
         {
           method: "GET",
           header: {
-            authorisation: `bearer ${token}`,
+            authorisation: `Bearer ${token}`,
           },
         }
       );
-      setJackets(data);
+      setJackets(data[0]);
     } catch (err) {
       console.log(err);
     }

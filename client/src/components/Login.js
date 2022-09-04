@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 function Login() {
   let [credentials, setCredentials] = useState({ username: "", password: "" });
@@ -23,10 +23,10 @@ function Login() {
         method: "POST",
         data: credentials,
       });
-
-      localStorage.setItem("token", data);
       setLoggedIn(true);
+      localStorage.setItem("token", data);
       navigate("/wardrobe");
+
       console.log(loggedIn + " is log in status");
     } catch (err) {
       setError(true);

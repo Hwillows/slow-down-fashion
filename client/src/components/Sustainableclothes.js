@@ -60,7 +60,7 @@ function Sustainableclothes() {
       <Header />
       <div className="container">
         <div className="row">
-          <div class="col-md-8">
+          <div className="col-md-8">
             <h2 className="mt-4">Sustainable Clothing</h2>
             {recommendations.map((oneRecommendation, index) => {
               return (

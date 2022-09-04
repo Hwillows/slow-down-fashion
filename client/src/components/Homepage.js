@@ -13,7 +13,7 @@ function Homepage() {
               <div className="row row-cols-1">
                 <div className="col">
                   <h2 className="mt-3 mb-3">
-                    Increasing your love for your existing wardrobe
+                    Finding a new love for your existing wardrobe
                   </h2>
                 </div>
                 <div className="col">

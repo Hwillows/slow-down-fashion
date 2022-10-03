@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useState } from "react";
+import parse from "html-react-parser";
 import "../App.css";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -17,17 +19,25 @@ function Form() {
     setImage(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let newItem = { clothesCategory: category, clothesImage: image };
+  let newItem = { clothesCategory: category, clothesImage: image };
 
-    fetch("http://localhost:5005/wardrobe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify(newItem),
-    }).then(() => {
-      console.log("new item added");
-    });
+  const handleSubmit = async () => {
+    try {
+      let token = localStorage.getItem("token");
+      const { data } = await axios.post(
+        "http://localhost:5005/wardrobe",
+        newItem,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        }
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

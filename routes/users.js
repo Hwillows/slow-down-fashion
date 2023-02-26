@@ -36,7 +36,7 @@ router.post("/register", async function (req, res, next) {
     if (userExists === undefined) {
       const hash = await bcrypt.hash(password, saltRounds);
       await db(
-        `INSERT INTO users (username, password) VALUES ("${username}", "${hash}")`
+        `INSERT INTO users (username, password) VALUES ("${username}", "${hash}");`
       );
       res.status(200).send("user added");
     }

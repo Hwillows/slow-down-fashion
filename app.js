@@ -8,6 +8,8 @@ var bodyParser = require("body-parser");
 var wardrobeRouter = require("./routes/wardrobe");
 var sustainableClothingRouter = require("./routes/sustainableClothing");
 var usersRouter = require("./routes/users");
+var rehomeRouter = require("./routes/rehome");
+var outfitRouter = require("./routes/outfit");
 var app = express();
 app.use(cors());
 // parse application/json
@@ -24,6 +26,8 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use("/", wardrobeRouter);
 app.use("/", sustainableClothingRouter);
+app.use("/", rehomeRouter);
+app.use("/", outfitRouter);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const error = new Error("Not found");

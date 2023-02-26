@@ -13,6 +13,8 @@ import Tops from "./components/wardrobe/Tops";
 import Bottoms from "./components/wardrobe/Bottoms";
 import AllInOnes from "./components/wardrobe/AllInOnes";
 import Shoes from "./components/wardrobe/Shoes";
+import ReHome from "./components/ReHome";
+import Outfit from "./components/ReusableComponents/Outfit";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -29,6 +31,8 @@ root.render(
       <Route path="/bottoms" element={<Bottoms />} />
       <Route path="/allinones" element={<AllInOnes />} />
       <Route path="/shoes" element={<Shoes />} />
+      <Route path="/rehome" element={<ReHome />} />
+      <Route path="/outfit" element={<Outfit />} />
     </Routes>
   </BrowserRouter>
 );

@@ -7,7 +7,7 @@ router.get("/", function (req, res, next) {
   res.send("You are an index");
 });
 
-router.get("/wardrobe", userShouldBeLoggedIn, async function (req, res, next) {
+router.get("/rehome", userShouldBeLoggedIn, async function (req, res, next) {
   const username = req.username;
   try {
     const results = await db(
@@ -15,7 +15,7 @@ router.get("/wardrobe", userShouldBeLoggedIn, async function (req, res, next) {
     );
     const user = results.data[0];
     const { data } = await db(
-      `SELECT * FROM wardrobe WHERE user_id="${user.id}";`
+      `SELECT * FROM rehome WHERE user_id="${user.id}";`
     );
     if (data.length) {
       res.status(200).send(data);
@@ -27,31 +27,7 @@ router.get("/wardrobe", userShouldBeLoggedIn, async function (req, res, next) {
   }
 });
 
-router.get(
-  "/wardrobe/item/:clothesCategory",
-  userShouldBeLoggedIn,
-  async function (req, res, next) {
-    const username = req.username;
-    try {
-      const results = await db(
-        `SELECT id FROM users WHERE username="${username}";`
-      );
-      const user = results.data[0];
-      const { data } = await db(
-        `SELECT * FROM wardrobe WHERE user_id="${user.id}" AND clothesCategory="${req.params.clothesCategory}";`
-      );
-      if (data.length) {
-        res.status(200).send(data);
-      } else {
-        res.status(404).send("Could not retrieve clothes items");
-      }
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  }
-);
-
-router.post("/wardrobe", userShouldBeLoggedIn, async function (req, res, next) {
+router.post("/rehome", userShouldBeLoggedIn, async function (req, res, next) {
   console.log(req.body, "is the body");
   try {
     const { clothesCategory, clothesImage } = req.body;
@@ -62,7 +38,7 @@ router.post("/wardrobe", userShouldBeLoggedIn, async function (req, res, next) {
     );
     const user = data[0];
     await db(
-      `INSERT INTO wardrobe (user_id, clothesCategory, clothesImage) VALUES ("${user.id}", "${clothesCategory}", "${clothesImage}");`
+      `INSERT INTO rehome (user_id, clothesCategory, clothesImage) VALUES ("${user.id}", "${clothesCategory}", "${clothesImage}");`
     );
     res.status(200).send(data);
   } catch (err) {
@@ -70,9 +46,9 @@ router.post("/wardrobe", userShouldBeLoggedIn, async function (req, res, next) {
   }
 });
 
-router.delete("/wardrobe/:id", function (req, res) {
+router.delete("/rehome/:id", function (req, res) {
   console.log(req.params, "is the params");
-  db(`DELETE FROM wardrobe WHERE id=${req.params.id};`)
+  db(`DELETE FROM rehome WHERE id=${req.params.id};`)
     .then((results) => res.send(results))
     .catch((err) => res.status(500).send(err));
 });

@@ -55,7 +55,9 @@ function Menu() {
           <Link to="/form">
             <h5 className="mt-5">Add to Wardrobe</h5>
           </Link>
-          <h5 className="mt-5">To Re-Home</h5>
+          <Link to="/rehome">
+            <h5 className="mt-5">To Rehome</h5>
+          </Link>
         </div>
       </div>
     </div>

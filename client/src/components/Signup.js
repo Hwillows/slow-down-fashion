@@ -22,16 +22,16 @@ function Signup() {
     const username = credentials.username;
     const password = credentials.password;
     try {
-      await axios("users/register", {
+      await axios("http://localhost:5005/users/register", {
         method: "POST",
         data: credentials,
       });
-      const { data } = await axios("/api/users/login", {
-        method: "POST",
-        data: { username: username, password: password },
-      });
-      localStorage.setItem("token", data);
-      navigate("/wardrobe");
+      // const { data } = await axios("http://localhost:5005/users/login", {
+      //   method: "POST",
+      //   data: { username: username, password: password },
+      // });
+      // localStorage.setItem("token", data);
+      navigate("/login");
     } catch (err) {
       setError(true);
     }

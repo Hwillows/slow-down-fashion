@@ -35,11 +35,28 @@ con.connect(function (err) {
     console.log("Closing...");
   });
 
+  let sqlRehome =
+    "DROP TABLE if exists rehome; CREATE TABLE rehome(id INT NOT NULL AUTO_INCREMENT, user_id INT NOT NULL, clothesCategory VARCHAR(255) not null, clothesImage VARCHAR(255) not null, PRIMARY KEY (id));";
+  con.query(sqlRehome, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `rehome` was successful!");
+    console.log("Closing...");
+  });
+
   let sqlSustainableClothing =
     "DROP TABLE if exists sustainableClothing; CREATE TABLE sustainableClothing(id INT NOT NULL AUTO_INCREMENT, companyName VARCHAR(255) not null, price VARCHAR(255) not null, url VARCHAR(255) not null, comments VARCHAR(255) not null, PRIMARY KEY (id));";
   con.query(sqlSustainableClothing, function (err, result) {
     if (err) throw err;
     console.log("Table creation `sustainableClothing` was successful!");
+
+    console.log("Closing...");
+  });
+
+  let sqlOutfit =
+    "DROP TABLE if exists outfit; CREATE TABLE outfit(id INT NOT NULL AUTO_INCREMENT, user_id INT NOT NULL, url VARCHAR(255) not null, PRIMARY KEY (id));";
+  con.query(sqlOutfit, function (err, result) {
+    if (err) throw err;
+    console.log("Table creation `outfit` was successful!");
 
     console.log("Closing...");
   });
